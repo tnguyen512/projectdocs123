@@ -1,0 +1,29 @@
+title: Tech Docs
+description: Technical Documentation for Projects
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Collections for projects
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:name
+
+# Include README files
+include:
+  - web-ojs
+  - travel-mentor
+
+# Exclude unnecessary files
+exclude:
+  - .git
+  - .github
+  - .kiro
+  - .vscode
+  - node_modules
+  - Gemfile
+  - Gemfile.lock

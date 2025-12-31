@@ -1,3 +1,8 @@
+---
+layout: default
+title: Travel Mentor
+---
+
 # Travel Mentor
 
 > Hệ thống tư vấn và hướng dẫn du lịch

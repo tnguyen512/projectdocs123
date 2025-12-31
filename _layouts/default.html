@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #1e1e1e;
+            color: #ccc;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 15px 20px;
+            background: #252526;
+            border-bottom: 1px solid #333;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 16px;
+            color: #fff;
+        }
+        
+        .section-title {
+            padding: 10px 15px;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+            background: #252526;
+            border-bottom: 1px solid #333;
+        }
+        
+        .file-tree {
+            list-style: none;
+            padding: 5px 0;
+        }
+        
+        .folder-item, .file-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 15px;
+            cursor: pointer;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.15s;
+        }
+        
+        .folder-item:hover, .file-item:hover {
+            background: #2a2d2e;
+        }
+        
+        .file-item.active {
+            background: #094771;
+            color: #fff;
+        }
+        
+        .folder-icon, .file-icon {
+            margin-right: 6px;
+        }
+        
+        .folder-toggle {
+            margin-left: auto;
+            font-size: 10px;
+            color: #888;
+            transition: transform 0.2s;
+        }
+        
+        .folder-toggle.open { transform: rotate(90deg); }
+        
+        .folder-content {
+            list-style: none;
+            display: none;
+            padding-left: 15px;
+        }
+        
+        .folder-content.open { display: block; }
+        
+        .level-1 { padding-left: 25px; }
+        .level-2 { padding-left: 40px; }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px 40px;
+            max-width: 900px;
+        }
+        
+        .content-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 { color: #1a1a2e; margin-bottom: 15px; font-size: 28px; }
+        h2 { color: #16213e; margin: 25px 0 15px; padding-bottom: 8px; border-bottom: 2px solid #e94560; font-size: 20px; }
+        h3 { color: #0f3460; margin: 20px 0 10px; font-size: 16px; }
+        p { color: #555; line-height: 1.7; margin-bottom: 15px; }
+        ul, ol { margin: 10px 0 20px 25px; color: #555; }
+        li { margin: 8px 0; line-height: 1.6; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 15px 0 25px; font-size: 14px; }
+        th, td { padding: 12px 15px; text-align: left; border: 1px solid #ddd; }
+        th { background: #1a1a2e; color: #fff; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        
+        pre { background: #1a1a2e; color: #eee; padding: 15px; border-radius: 8px; overflow-x: auto; margin: 15px 0; }
+        code { font-family: 'Fira Code', Consolas, monospace; }
+        
+        .status { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; }
+        .status-done { background: #d4edda; color: #155724; }
+        .status-progress { background: #fff3cd; color: #856404; }
+        .status-pending { background: #e2e3e5; color: #383d41; }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>📚 TECH-DOCS</h2>
+        </div>
+        
+        <div class="section-title">EXPLORER</div>
+        <ul class="file-tree">
+            <li>
+                <div class="folder-item" onclick="toggleFolder(this)">
+                    <span class="folder-icon">📂</span>
+                    <span>tech-docs</span>
+                    <span class="folder-toggle open">▶</span>
+                </div>
+                <ul class="folder-content open">
+                    <li>
+                        <div class="folder-item level-1" onclick="toggleFolder(this)">
+                            <span class="folder-icon">📁</span>
+                            <span>web-ojs</span>
+                            <span class="folder-toggle">▶</span>
+                        </div>
+                        <ul class="folder-content">
+                            <li><a href="{{ site.baseurl }}/web-ojs/" class="file-item level-2 {% if page.url == '/web-ojs/' %}active{% endif %}"><span class="file-icon">📄</span>README.md</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="folder-item level-1" onclick="toggleFolder(this)">
+                            <span class="folder-icon">📁</span>
+                            <span>travel-mentor</span>
+                            <span class="folder-toggle">▶</span>
+                        </div>
+                        <ul class="folder-content">
+                            <li><a href="{{ site.baseurl }}/travel-mentor/" class="file-item level-2 {% if page.url == '/travel-mentor/' %}active{% endif %}"><span class="file-icon">📄</span>README.md</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ site.baseurl }}/" class="file-item level-1 {% if page.url == '/' %}active{% endif %}"><span class="file-icon">📄</span>README.md</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+        <div class="section-title">PROJECTS</div>
+        <ul class="file-tree">
+            <li><a href="{{ site.baseurl }}/web-ojs/" class="file-item {% if page.url == '/web-ojs/' %}active{% endif %}"><span class="file-icon">🗂️</span>Web OJS</a></li>
+            <li><a href="{{ site.baseurl }}/travel-mentor/" class="file-item {% if page.url == '/travel-mentor/' %}active{% endif %}"><span class="file-icon">🗂️</span>Travel Mentor</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="content-box">
+            {{ content }}
+        </div>
+    </main>
+
+    <script>
+        function toggleFolder(el) {
+            const content = el.nextElementSibling;
+            const toggle = el.querySelector('.folder-toggle');
+            if (content && content.classList.contains('folder-content')) {
+                content.classList.toggle('open');
+                toggle.classList.toggle('open');
+            }
+        }
+    </script>
+</body>
+</html>

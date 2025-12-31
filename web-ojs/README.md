@@ -1,3 +1,8 @@
+---
+layout: default
+title: Web OJS
+---
+
 # Web OJS - Hệ thống Tạp chí Khoa học Trực tuyến
 
 > Nền tảng quản lý và xuất bản tạp chí học thuật toàn diện, hỗ trợ quy trình từ nộp bản thảo, phản biện đến xuất bản chính thức.
